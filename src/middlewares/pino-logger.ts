@@ -13,7 +13,7 @@ declare module "hono" {
 export function logger() {
   return pinoLogger({
     // eslint-disable-next-line node/no-process-env
-    pino: pino.default(process.env.NODE_ENV === "production"
+    pino: pino.default({ level: process.env.LOG_LEVEL || "info" }, process.env.NODE_ENV === "production"
       ? undefined
       : pretty({
         colorize: true,
