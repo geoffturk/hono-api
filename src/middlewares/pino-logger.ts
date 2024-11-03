@@ -12,9 +12,12 @@ declare module "hono" {
 
 export function logger() {
   return pinoLogger({
-    pino: pino.default(pretty({
-      colorize: true,
-    }) as pino.DestinationStream),
+    // eslint-disable-next-line node/no-process-env
+    pino: pino.default(process.env.NODE_ENV === "production"
+      ? undefined
+      : pretty({
+        colorize: true,
+      }) as pino.DestinationStream),
     http: {
       reqId: () => crypto.randomUUID(),
     },
