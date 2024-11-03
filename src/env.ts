@@ -12,10 +12,10 @@ const EnvSchema = z.object({
   LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]),
 });
 
-export type env = z.infer<typeof EnvSchema>;
+export type Env = z.infer<typeof EnvSchema>;
 
-// eslint-disable-next-line import/no-mutable-exports, ts/no-redeclare
-let env: env;
+// eslint-disable-next-line import/no-mutable-exports
+let env: Env;
 
 try {
   // eslint-disable-next-line node/no-process-env
