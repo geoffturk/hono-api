@@ -1,5 +1,6 @@
 import type { PinoLogger } from "hono-pino";
 
+import { serveStatic } from "@hono/node-server/serve-static";
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { notFound, onError } from "stoker/middlewares";
 
@@ -12,6 +13,8 @@ interface AppBindings {
 };
 
 const app = new OpenAPIHono<AppBindings>();
+
+app.use("*", serveStatic({ root: "./static" }));
 app.use(logger());
 
 app.get("/", (c) => {
