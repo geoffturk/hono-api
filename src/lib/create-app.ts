@@ -6,10 +6,14 @@ import { logger } from "@/middlewares/pino-logger.js";
 
 import type { AppBindings } from "./types.js";
 
-export default function createApp() {
-  const app = new OpenAPIHono<AppBindings>({
+export function createRouter() {
+  return new OpenAPIHono<AppBindings>({
     strict: false,
   });
+}
+
+export default function createApp() {
+  const app = createRouter();
   app.use("*", serveStatic({ root: "./static" }));
   app.use(logger());
 
