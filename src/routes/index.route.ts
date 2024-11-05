@@ -8,6 +8,7 @@ import { createRouter } from "@/lib/create-app.js";
 const router = createRouter()
   .openapi(
     createRoute({
+      tags: ["Index"],
       method: "get",
       path: "/",
       responses: {
