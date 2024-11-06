@@ -16,8 +16,9 @@ export function createRouter() {
 
 export default function createApp() {
   const app = createRouter();
-  app.use("*", serveStatic({ root: "./static" }));
   app.use(logger());
+
+  app.use("/favicon.ico", serveStatic({ root: "./public" }));
 
   app.notFound(notFound);
   app.onError(onError);
