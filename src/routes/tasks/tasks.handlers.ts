@@ -2,18 +2,11 @@ import * as HttpStatusCodes from "stoker/http-status-codes";
 
 import type { AppRouteHandler } from "@/lib/types.js";
 
+import db from "@/db/index.ts";
+
 import type { ListRoute } from "./tasks.routes.js";
 
-export const list: AppRouteHandler<ListRoute> = (c) => {
-  c.var.logger.info("Tasks list");
-  return c.json([{
-    name: "Task 1",
-    done: false,
-  }, {
-    name: "Task 2",
-    done: true,
-  }, {
-    name: "Task 3",
-    done: false,
-  }], HttpStatusCodes.OK);
+export const list: AppRouteHandler<ListRoute> = async (c) => {
+  const tasks = await db.query.tasks.findMany();
+  return c.json(tasks);
 };
